@@ -998,3 +998,254 @@ This comprehensive guide provides everything needed to create a **production-rea
 **Security-first approach** implements content filtering, sensitive data detection, and audit logging to meet enterprise compliance requirements while enabling powerful AI capabilities.
 
 The resulting plugin delivers a **Novel-like editing experience** within Confluence’s enterprise environment, providing users with AI-assisted content creation while maintaining the security and scalability requirements of Data Center deployments.
+
+
+# Complete Confluence AI Editor Plugin Directory Structure
+
+```
+ai-editor-confluence-plugin/
+├── pom.xml                                    # Main Maven configuration
+├── README.md                                  # Project documentation
+├── .gitignore                                 # Git ignore patterns
+├── CHANGELOG.md                               # Version history
+├── LICENSE                                    # License file
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── example/
+│   │   │           └── plugin/
+│   │   │               ├── macro/
+│   │   │               │   └── AIEditorMacro.java         # Confluence macro implementation
+│   │   │               ├── rest/
+│   │   │               │   ├── AIController.java          # REST API endpoints
+│   │   │               │   ├── dto/
+│   │   │               │   │   ├── AIRequest.java         # Request DTOs
+│   │   │               │   │   └── AIResponse.java        # Response DTOs
+│   │   │               │   └── filter/
+│   │   │               │       └── SecurityFilter.java   # Security filters
+│   │   │               ├── service/
+│   │   │               │   ├── AIService.java             # Main AI service
+│   │   │               │   ├── AIContentValidator.java   # Content validation
+│   │   │               │   ├── AIResponseCache.java      # Caching service
+│   │   │               │   └── AIMetrics.java             # Metrics collection
+│   │   │               ├── config/
+│   │   │               │   ├── PluginConfiguration.java  # Plugin config
+│   │   │               │   └── SecurityConfiguration.java # Security config
+│   │   │               ├── exception/
+│   │   │               │   ├── AIServiceException.java   # Custom exceptions
+│   │   │               │   └── SecurityException.java    # Security exceptions
+│   │   │               └── util/
+│   │   │                   ├── JsonUtils.java            # JSON utilities
+│   │   │                   └── HashUtils.java            # Hashing utilities
+│   │   │
+│   │   └── resources/
+│   │       ├── atlassian-plugin.xml                      # Plugin descriptor
+│   │       ├── templates/
+│   │       │   ├── ai-editor-macro.vm                    # Velocity template for macro
+│   │       │   └── admin/
+│   │       │       └── configuration.vm                 # Admin configuration page
+│   │       ├── i18n/
+│   │       │   ├── ai-editor.properties                  # Default translations
+│   │       │   ├── ai-editor_en.properties               # English translations
+│   │       │   ├── ai-editor_es.properties               # Spanish translations
+│   │       │   └── ai-editor_fr.properties               # French translations
+│   │       ├── images/
+│   │       │   ├── plugin-icon.png                       # Plugin icon
+│   │       │   ├── ai-icon.svg                          # AI feature icon
+│   │       │   └── editor-icons/
+│   │       │       ├── continue.svg                      # Continue writing icon
+│   │       │       ├── improve.svg                       # Improve text icon
+│   │       │       └── summarize.svg                     # Summarize icon
+│   │       ├── css/
+│   │       │   └── ai-editor-admin.css                   # Admin panel styles
+│   │       └── META-INF/
+│   │           └── spring/
+│   │               └── plugin-context.xml                # Spring configuration
+│   │
+│   └── test/
+│       ├── java/
+│       │   └── com/
+│       │       └── example/
+│       │           └── plugin/
+│       │               ├── macro/
+│       │               │   └── AIEditorMacroTest.java    # Macro tests
+│       │               ├── rest/
+│       │               │   └── AIControllerTest.java     # REST API tests
+│       │               ├── service/
+│       │               │   ├── AIServiceTest.java        # Service tests
+│       │               │   ├── AIContentValidatorTest.java # Validator tests
+│       │               │   └── AIResponseCacheTest.java  # Cache tests
+│       │               └── integration/
+│       │                   └── AIIntegrationTest.java    # Integration tests
+│       │
+│       └── resources/
+│           ├── test-data/
+│           │   ├── sample-content.html                   # Test content
+│           │   └── ai-responses.json                     # Mock AI responses
+│           └── logback-test.xml                          # Test logging config
+│
+├── frontend/                                             # Frontend React/TypeScript code
+│   ├── package.json                                      # NPM configuration
+│   ├── package-lock.json                                 # NPM lock file
+│   ├── webpack.config.js                                 # Webpack configuration
+│   ├── webpack.prod.js                                   # Production webpack config
+│   ├── webpack.dev.js                                    # Development webpack config
+│   ├── tsconfig.json                                     # TypeScript configuration
+│   ├── .eslintrc.js                                      # ESLint configuration
+│   ├── .prettierrc                                       # Prettier configuration
+│   │
+│   ├── src/
+│   │   ├── index.tsx                                     # Main entry point
+│   │   ├── types/
+│   │   │   ├── ai.types.ts                              # AI-related types
+│   │   │   ├── editor.types.ts                          # Editor types
+│   │   │   └── confluence.types.ts                      # Confluence types
+│   │   │
+│   │   ├── components/
+│   │   │   ├── AIEditor.tsx                             # Main AI editor component
+│   │   │   ├── NovelEditor.tsx                          # Novel-style editor
+│   │   │   ├── AIAssistant.tsx                          # AI assistant panel
+│   │   │   ├── BubbleMenu.tsx                           # Floating menu
+│   │   │   ├── SlashMenu.tsx                            # Slash command menu
+│   │   │   ├── LoadingSpinner.tsx                       # Loading indicator
+│   │   │   └── ErrorBoundary.tsx                        # Error handling
+│   │   │
+│   │   ├── extensions/
+│   │   │   ├── AIExtension.ts                           # TipTap AI extension
+│   │   │   ├── SlashCommand.ts                          # Slash command extension
+│   │   │   ├── BubbleMenuExtension.ts                   # Bubble menu extension
+│   │   │   └── HighlightExtension.ts                    # Text highlighting
+│   │   │
+│   │   ├── services/
+│   │   │   ├── AIService.ts                             # Frontend AI service
+│   │   │   ├── ConfluenceAPI.ts                         # Confluence API client
+│   │   │   ├── StorageService.ts                        # Local storage service
+│   │   │   └── EventService.ts                          # Event management
+│   │   │
+│   │   ├── hooks/
+│   │   │   ├── useAI.ts                                 # AI operations hook
+│   │   │   ├── useEditor.ts                             # Editor state hook
+│   │   │   ├── useDebounce.ts                           # Debouncing hook
+│   │   │   └── useLocalStorage.ts                       # Storage hook
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── api.utils.ts                             # API utilities
+│   │   │   ├── text.utils.ts                            # Text processing
+│   │   │   ├── validation.utils.ts                      # Input validation
+│   │   │   └── constants.ts                             # App constants
+│   │   │
+│   │   └── styles/
+│   │       ├── editor.css                               # Editor styles
+│   │       ├── ai-assistant.css                         # AI assistant styles
+│   │       ├── bubble-menu.css                          # Bubble menu styles
+│   │       ├── slash-menu.css                           # Slash menu styles
+│   │       ├── variables.css                            # CSS variables
+│   │       └── animations.css                           # Animation styles
+│   │
+│   ├── public/
+│   │   └── icons/
+│   │       ├── ai.svg                                   # AI icon
+│   │       ├── magic-wand.svg                           # Magic wand icon
+│   │       └── sparkles.svg                             # Sparkles icon
+│   │
+│   └── dist/                                            # Build output (generated)
+│       ├── ai-editor.js                                 # Bundled JavaScript
+│       ├── ai-editor.css                                # Bundled CSS
+│       └── assets/                                      # Static assets
+│
+├── docs/                                                # Documentation
+│   ├── installation.md                                  # Installation guide
+│   ├── configuration.md                                 # Configuration guide
+│   ├── api.md                                          # API documentation
+│   ├── troubleshooting.md                              # Troubleshooting guide
+│   └── screenshots/                                     # Feature screenshots
+│       ├── editor-interface.png
+│       ├── ai-suggestions.png
+│       └── admin-panel.png
+│
+├── scripts/                                            # Build and deployment scripts
+│   ├── build.sh                                        # Build script
+│   ├── deploy.sh                                       # Deployment script
+│   ├── test.sh                                         # Test runner script
+│   └── release.sh                                      # Release script
+│
+├── config/                                             # Configuration files
+│   ├── checkstyle.xml                                  # Code style rules
+│   ├── spotbugs-exclude.xml                            # SpotBugs exclusions
+│   └── sonar-project.properties                       # SonarQube config
+│
+├── target/                                             # Maven build output (generated)
+│   ├── classes/
+│   │   ├── com/example/plugin/                         # Compiled Java classes
+│   │   ├── templates/                                  # Processed templates
+│   │   ├── i18n/                                       # Processed translations
+│   │   ├── assets/                                     # Frontend build output
+│   │   │   ├── ai-editor.js                            # Bundled JS
+│   │   │   └── ai-editor.css                           # Bundled CSS
+│   │   └── META-INF/
+│   │       ├── MANIFEST.MF                             # JAR manifest
+│   │       └── plugin-descriptors/
+│   │           └── wr-webpack-bundles.xml              # Webpack web resources
+│   ├── test-classes/                                   # Test classes
+│   ├── surefire-reports/                               # Test reports
+│   ├── ai-editor-plugin-1.0.0-SNAPSHOT.jar            # Final plugin JAR
+│   └── ai-editor-plugin-1.0.0-SNAPSHOT-tests.jar      # Test JAR
+│
+├── .github/                                            # GitHub Actions (optional)
+│   └── workflows/
+│       ├── ci.yml                                      # Continuous integration
+│       ├── release.yml                                 # Release workflow
+│       └── security.yml                                # Security scanning
+│
+├── docker/                                             # Docker setup (optional)
+│   ├── Dockerfile                                      # Plugin container
+│   ├── docker-compose.yml                              # Local development
+│   └── confluence/
+│       └── setenv.sh                                   # Confluence environment
+│
+└── node_modules/                                       # NPM dependencies (generated)
+    └── ...                                             # Frontend dependencies
+```
+
+## Key File Descriptions
+
+### Root Level Files
+
+- **pom.xml**: Main Maven configuration orchestrating frontend and backend builds
+- **README.md**: Comprehensive setup and usage documentation
+- **.gitignore**: Excludes build artifacts, dependencies, IDE files
+
+### Java Backend (`src/main/java/`)
+
+- **macro/AIEditorMacro.java**: Confluence macro that embeds the AI editor
+- **rest/AIController.java**: REST endpoints for AI operations
+- **service/AIService.java**: Core AI integration service with caching and validation
+- **config/**: Spring configuration and plugin setup
+
+### Resources (`src/main/resources/`)
+
+- **atlassian-plugin.xml**: Plugin descriptor defining all components and dependencies
+- **templates/**: Velocity templates for macro rendering
+- **i18n/**: Internationalization files for multiple languages
+
+### Frontend (`frontend/src/`)
+
+- **components/AIEditor.tsx**: Main editor component with Novel-style interface
+- **extensions/**: TipTap extensions for AI functionality and slash commands
+- **services/**: API clients and utility services
+- **styles/**: CSS modules for component styling
+
+### Build Configuration
+
+- **webpack.config.js**: Bundles frontend code with Atlassian web resource integration
+- **tsconfig.json**: TypeScript compilation settings
+- **package.json**: NPM dependencies and build scripts
+
+### Testing Structure
+
+- **src/test/java/**: Unit and integration tests for all Java components
+- **frontend/src/**/*.test.ts**: Frontend component and service tests
+
+This structure follows Maven conventions while supporting modern frontend development with proper separation of concerns and enterprise-grade organization.
